@@ -99,13 +99,13 @@ uniapp_plist_values = defined?(UNIAPP_PLIST_VALUES) ? UNIAPP_PLIST_VALUES : {}
 uts_plugin_values = defined?(UNIAPP_UTS_PLUGIN_VALUES) ? UNIAPP_UTS_PLUGIN_VALUES : {}
 uts_plugins = UniAppUTSPlugins.prepare!(
   File.join(__dir__, 'UTSPlugins'),
-  sdk_path: File.expand_path('..', __dir__),
+  sdk_path: File.join(__dir__, 'SDK'),
   values: uts_plugin_values
 )
 
 target 'sdk_uniapp_iosDemo' do
 pod 'xiluAdSdk', :git => 'https://github.com/UnAmico0/xiluAdSdk_ios_pod.git', :tag => '1.0.12'
-  pod 'uniapp', :path => '..', :subspecs => uniapp_subspecs
+  pod 'uniapp', :path => './SDK', :subspecs => uniapp_subspecs
   uts_plugins.each do |plugin|
     pod plugin[:pod_name], :path => plugin[:pod_path]
   end

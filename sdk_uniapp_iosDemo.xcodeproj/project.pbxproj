@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,17 +18,16 @@
 		6743942A23C98EB30085145E /* LaunchScreenAD.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6743942923C98EB30085145E /* LaunchScreenAD.storyboard */; };
 		67B7CAA221DCE8180083E96A /* control.xml in Resources */ = {isa = PBXBuildFile; fileRef = 67B7CAA121DCE8180083E96A /* control.xml */; };
 		67E9CDCF22968D2E0076E0FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 67E9CDCD22968D2E0076E0FB /* Localizable.strings */; };
-		6890736B209229D748CCB9EB /* Pods_sdk_uniapp_iosDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1CCC394A0010D2F56879DF /* Pods_sdk_uniapp_iosDemo.framework */; };
+		883F4F16C757D18018D0E848 /* Pods_sdk_uniapp_iosDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E183269366811BBF47615E /* Pods_sdk_uniapp_iosDemo.framework */; };
 		8EED62A6198A1D13000A4449 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8EED62A4198A1D13000A4449 /* InfoPlist.strings */; };
 		8EED62A8198A1D13000A4449 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EED62A7198A1D13000A4449 /* main.m */; };
 		8EED62AC198A1D13000A4449 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EED62AB198A1D13000A4449 /* AppDelegate.m */; };
 		8EED62B5198A1D14000A4449 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EED62B4198A1D14000A4449 /* ViewController.m */; };
 		8EED6590198A3DF7000A4449 /* Pandora in Resources */ = {isa = PBXBuildFile; fileRef = 8EED658F198A3DF7000A4449 /* Pandora */; };
-		9301C71A2FF6575500E5B761 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9301C7182FF6575500E5B761 /* libmp3lame.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		7A4980F42126ADAD00D20880 /* Embed Frameworks */ = {
+		30C717BC3059522700156594 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -41,6 +40,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		12515B4C07321F4856151E04 /* Pods-sdk_uniapp_iosDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_uniapp_iosDemo.debug.xcconfig"; path = "Target Support Files/Pods-sdk_uniapp_iosDemo/Pods-sdk_uniapp_iosDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		2F0BA3F8215B48A700F67004 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../HBuilder/Images.xcassets; sourceTree = "<group>"; };
 		2F0BA40D215B6E6800F67004 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		2F0BA4DB215BA12300F67004 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,7 +49,6 @@
 		30F5847A3057BC8B00EA74E9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		30F5847B3057BC8B00EA74E9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		30F5847F3057BC9C00EA74E9 /* uni_modules */ = {isa = PBXFileReference; lastKnownFileType = folder; path = uni_modules; sourceTree = "<group>"; };
-		45EFA9E9B8A367BB52C6E4FF /* Pods-sdk_uniapp_iosDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_uniapp_iosDemo.release.xcconfig"; path = "Target Support Files/Pods-sdk_uniapp_iosDemo/Pods-sdk_uniapp_iosDemo.release.xcconfig"; sourceTree = "<group>"; };
 		4F6ABFDC2451A1DC00C40B5A /* dclogo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dclogo@3x.png"; sourceTree = "<group>"; };
 		4F6ABFDD2451A1DC00C40B5A /* dclogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dclogo@2x.png"; sourceTree = "<group>"; };
 		6731F399232F4F03007838BC /* HBuilder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = HBuilder.entitlements; path = HBuilder/HBuilder.entitlements; sourceTree = "<group>"; };
@@ -57,7 +56,7 @@
 		67B7CAA121DCE8180083E96A /* control.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.xml; sourceTree = "<group>"; };
 		67E9CDCE22968D2E0076E0FB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		67E9CDD022968D350076E0FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		7A1CCC394A0010D2F56879DF /* Pods_sdk_uniapp_iosDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sdk_uniapp_iosDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		72E183269366811BBF47615E /* Pods_sdk_uniapp_iosDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sdk_uniapp_iosDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EED6298198A1D13000A4449 /* sdk_uniapp_iosDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sdk_uniapp_iosDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EED62A3198A1D13000A4449 /* sdk_uniapp_iosDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "sdk_uniapp_iosDemo-Info.plist"; sourceTree = "<group>"; };
 		8EED62A5198A1D13000A4449 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -68,32 +67,15 @@
 		8EED62B3198A1D14000A4449 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		8EED62B4198A1D14000A4449 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		8EED658F198A3DF7000A4449 /* Pandora */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Pandora; sourceTree = "<group>"; };
-		9301C7182FF6575500E5B761 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmp3lame.a; path = ../SDK/Libs/libmp3lame.a; sourceTree = "<group>"; };
-		C6ED1E54F1D8BA57DAD55565 /* Pods-sdk_uniapp_iosDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_uniapp_iosDemo.debug.xcconfig"; path = "Target Support Files/Pods-sdk_uniapp_iosDemo/Pods-sdk_uniapp_iosDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		CFEF56D9C307BC08A41318B3 /* Pods-sdk_uniapp_iosDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_uniapp_iosDemo.release.xcconfig"; path = "Target Support Files/Pods-sdk_uniapp_iosDemo/Pods-sdk_uniapp_iosDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		30F583A03057B10300EA74E9 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				DCloudUTSFoundation.framework,
-				DCUniBase.framework,
-			);
-			target = 8EED6297198A1D13000A4449 /* sdk_uniapp_iosDemo */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		3099E37B305798090008AE9B /* ../SDK/Libs */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (30F583A03057B10300EA74E9 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ../SDK/Libs; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		8EED6295198A1D13000A4449 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9301C71A2FF6575500E5B761 /* libmp3lame.a in Frameworks */,
-				6890736B209229D748CCB9EB /* Pods_sdk_uniapp_iosDemo.framework in Frameworks */,
+				883F4F16C757D18018D0E848 /* Pods_sdk_uniapp_iosDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,9 +123,7 @@
 		8EED629A198A1D13000A4449 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3099E37B305798090008AE9B /* ../SDK/Libs */,
-				9301C7182FF6575500E5B761 /* libmp3lame.a */,
-				7A1CCC394A0010D2F56879DF /* Pods_sdk_uniapp_iosDemo.framework */,
+				72E183269366811BBF47615E /* Pods_sdk_uniapp_iosDemo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -184,8 +164,8 @@
 		D2A2E2D03A01B94881067228 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C6ED1E54F1D8BA57DAD55565 /* Pods-sdk_uniapp_iosDemo.debug.xcconfig */,
-				45EFA9E9B8A367BB52C6E4FF /* Pods-sdk_uniapp_iosDemo.release.xcconfig */,
+				12515B4C07321F4856151E04 /* Pods-sdk_uniapp_iosDemo.debug.xcconfig */,
+				CFEF56D9C307BC08A41318B3 /* Pods-sdk_uniapp_iosDemo.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -197,13 +177,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8EED62CD198A1D14000A4449 /* Build configuration list for PBXNativeTarget "sdk_uniapp_iosDemo" */;
 			buildPhases = (
-				66901125263B3FB98E46A05D /* [CP] Check Pods Manifest.lock */,
+				FC45CD49DA90425F39CFC6BF /* [CP] Check Pods Manifest.lock */,
 				8EED6294198A1D13000A4449 /* Sources */,
 				8EED6295198A1D13000A4449 /* Frameworks */,
 				8EED6296198A1D13000A4449 /* Resources */,
-				7A4980F42126ADAD00D20880 /* Embed Frameworks */,
-				3DB05A1F19B4409C18CF6CA7 /* [CP] Embed Pods Frameworks */,
-				4A5EEFB8825C980D075114AA /* [CP] Copy Pods Resources */,
+				30C717BC3059522700156594 /* Embed Frameworks */,
+				78EAFD7AF045EA167627B8CF /* [CP] Embed Pods Frameworks */,
+				21C6CC641B4E3863B92B6CD2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -224,7 +204,9 @@
 				ORGANIZATIONNAME = DCloud;
 				TargetAttributes = {
 					8EED6297198A1D13000A4449 = {
+						DevelopmentTeam = DW8QURFJ5W;
 						LastSwiftMigration = 1320;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -276,15 +258,76 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3DB05A1F19B4409C18CF6CA7 /* [CP] Embed Pods Frameworks */ = {
+		21C6CC641B4E3863B92B6CD2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-sdk_uniapp_iosDemo/Pods-sdk_uniapp_iosDemo-resources.sh",
+				"${PODS_ROOT}/Ads-CN/SDK/CSJAdSDK.bundle",
+				"${PODS_ROOT}/BUTTSDKFramework/TTSDKFramework/TTSDKLiveBase/Resources/VeLive.bundle",
+				"${PODS_ROOT}/BUTTSDKFramework/TTSDKFramework/TTSDKPlayerCoreLiveLite/Resources/ttplayer.metallib",
+				"${PODS_ROOT}/BaiduMobAdSDK/baidumobadsdk.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift/CryptoSwift.bundle",
+				"${PODS_ROOT}/MSMobAdSDK/MSMobAdSDK/MSAdSDK.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/SnapKit/SnapKit_Privacy.bundle",
+				"${PODS_ROOT}/../SDK/SDK/Bundles/DCTZImagePickerController.bundle",
+				"${PODS_ROOT}/../SDK/SDK/Bundles/DCMediaEditingController.bundle",
+				"${PODS_ROOT}/../SDK/SDK/Bundles/PandoraApi.bundle",
+				"${PODS_ROOT}/../SDK/SDK/Bundles/__uniappes6.js",
+				"${PODS_ROOT}/../SDK/SDK/Bundles/uni-jsframework-dev.js",
+				"${PODS_ROOT}/../SDK/SDK/Bundles/uni-jsframework.js",
+				"${PODS_ROOT}/../SDK/SDK/Bundles/uni-jsframework-vue3.js",
+				"${PODS_ROOT}/../SDK/SDK/Bundles/uni-jsframework-vue3-dev.js",
+				"${PODS_ROOT}/../SDK/SDK/Bundles/weexUniJs.js",
+				"${PODS_ROOT}/../SDK/SDK/Bundles/weex-polyfill.js",
+				"${PODS_ROOT}/../SDK/SDK/Bundles/unincomponents.ttf",
+				"${PODS_ROOT}/../SDK/SDK/PrivacyInfo.xcprivacy",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleZynXiluAd/Resources/ttplayer.metallib",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleZynXiluAd/Resources/baidumobadsdk.bundle",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleZynXiluAd/Resources/CSJAdSDK.bundle",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleZynXiluAd/Resources/MSAdSDK.bundle",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleZynXiluAd/Resources/VeLive.bundle",
+				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleZynXiluAd/config.json",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CSJAdSDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/VeLive.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ttplayer.metallib",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/baidumobadsdk.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CryptoSwift.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MSAdSDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SnapKit_Privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/DCTZImagePickerController.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/DCMediaEditingController.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PandoraApi.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/__uniappes6.js",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/uni-jsframework-dev.js",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/uni-jsframework.js",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/uni-jsframework-vue3.js",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/uni-jsframework-vue3-dev.js",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/weexUniJs.js",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/weex-polyfill.js",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/unincomponents.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PrivacyInfo.xcprivacy",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/config.json",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-sdk_uniapp_iosDemo/Pods-sdk_uniapp_iosDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		78EAFD7AF045EA167627B8CF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-sdk_uniapp_iosDemo/Pods-sdk_uniapp_iosDemo-frameworks.sh",
-				"${PODS_ROOT}/../../SDK/Libs/DCUniBase.framework",
-				"${PODS_ROOT}/../../SDK/Libs/DCloudUTSFoundation.framework",
+				"${PODS_ROOT}/../SDK/SDK/Libs/DCUniBase.framework",
+				"${PODS_ROOT}/../SDK/SDK/Libs/DCloudUTSFoundation.framework",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/BUTTSDKFramework/Core/TTSDKCore.framework/TTSDKCore",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/BUTTSDKFramework/LiveBase/TTSDKLiveBase.framework/TTSDKLiveBase",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/BUTTSDKFramework/LivePlayer/Lite/TTSDKLivePlayerLite.framework/TTSDKLivePlayerLite",
@@ -324,68 +367,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-sdk_uniapp_iosDemo/Pods-sdk_uniapp_iosDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4A5EEFB8825C980D075114AA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-sdk_uniapp_iosDemo/Pods-sdk_uniapp_iosDemo-resources.sh",
-				"${PODS_ROOT}/Ads-CN/SDK/CSJAdSDK.bundle",
-				"${PODS_ROOT}/BUTTSDKFramework/TTSDKFramework/TTSDKLiveBase/Resources/VeLive.bundle",
-				"${PODS_ROOT}/BUTTSDKFramework/TTSDKFramework/TTSDKPlayerCoreLiveLite/Resources/ttplayer.metallib",
-				"${PODS_ROOT}/BaiduMobAdSDK/baidumobadsdk.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift/CryptoSwift.bundle",
-				"${PODS_ROOT}/MSMobAdSDK/MSMobAdSDK/MSAdSDK.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/SnapKit/SnapKit_Privacy.bundle",
-				"${PODS_ROOT}/../../SDK/Bundles/DCTZImagePickerController.bundle",
-				"${PODS_ROOT}/../../SDK/Bundles/DCMediaEditingController.bundle",
-				"${PODS_ROOT}/../../SDK/Bundles/PandoraApi.bundle",
-				"${PODS_ROOT}/../../SDK/Bundles/__uniappes6.js",
-				"${PODS_ROOT}/../../SDK/Bundles/uni-jsframework-dev.js",
-				"${PODS_ROOT}/../../SDK/Bundles/uni-jsframework.js",
-				"${PODS_ROOT}/../../SDK/Bundles/uni-jsframework-vue3.js",
-				"${PODS_ROOT}/../../SDK/Bundles/uni-jsframework-vue3-dev.js",
-				"${PODS_ROOT}/../../SDK/Bundles/weexUniJs.js",
-				"${PODS_ROOT}/../../SDK/Bundles/weex-polyfill.js",
-				"${PODS_ROOT}/../../SDK/Bundles/unincomponents.ttf",
-				"${PODS_ROOT}/../../SDK/PrivacyInfo.xcprivacy",
-				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleZynXiluAd/Resources/ttplayer.metallib",
-				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleZynXiluAd/Resources/baidumobadsdk.bundle",
-				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleZynXiluAd/Resources/CSJAdSDK.bundle",
-				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleZynXiluAd/Resources/MSAdSDK.bundle",
-				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleZynXiluAd/Resources/VeLive.bundle",
-				"${PODS_ROOT}/../UTSPlugins/.generated/unimoduleZynXiluAd/config.json",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CSJAdSDK.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/VeLive.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ttplayer.metallib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/baidumobadsdk.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CryptoSwift.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MSAdSDK.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SnapKit_Privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/DCTZImagePickerController.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/DCMediaEditingController.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PandoraApi.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/__uniappes6.js",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/uni-jsframework-dev.js",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/uni-jsframework.js",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/uni-jsframework-vue3.js",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/uni-jsframework-vue3-dev.js",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/weexUniJs.js",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/weex-polyfill.js",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/unincomponents.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PrivacyInfo.xcprivacy",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/config.json",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-sdk_uniapp_iosDemo/Pods-sdk_uniapp_iosDemo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		66901125263B3FB98E46A05D /* [CP] Check Pods Manifest.lock */ = {
+		FC45CD49DA90425F39CFC6BF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -523,7 +505,7 @@
 		};
 		8EED62CE198A1D14000A4449 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C6ED1E54F1D8BA57DAD55565 /* Pods-sdk_uniapp_iosDemo.debug.xcconfig */;
+			baseConfigurationReference = 12515B4C07321F4856151E04 /* Pods-sdk_uniapp_iosDemo.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -554,14 +536,10 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(SRCROOT)/../SDK/inc\"/**",
 				);
 				INFOPLIST_FILE = "sdk_uniapp_iosDemo/sdk_uniapp_iosDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -588,7 +566,7 @@
 		};
 		8EED62CF198A1D14000A4449 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 45EFA9E9B8A367BB52C6E4FF /* Pods-sdk_uniapp_iosDemo.release.xcconfig */;
+			baseConfigurationReference = CFEF56D9C307BC08A41318B3 /* Pods-sdk_uniapp_iosDemo.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -618,14 +596,10 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(SRCROOT)/../SDK/inc\"/**",
 				);
 				INFOPLIST_FILE = "sdk_uniapp_iosDemo/sdk_uniapp_iosDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

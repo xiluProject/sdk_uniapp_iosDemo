@@ -84,24 +84,24 @@ PODS:
     - SnapKit
 
 DEPENDENCIES:
-  - uniapp/Audio (from `..`)
-  - uniapp/CameraGallery (from `..`)
-  - uniapp/Canvas (from `..`)
-  - uniapp/Contacts (from `..`)
-  - uniapp/Core (from `..`)
-  - uniapp/File (from `..`)
-  - uniapp/Fingerprint (from `..`)
-  - uniapp/Geolocation (from `..`)
-  - uniapp/Geolocation-Tencent (from `..`)
-  - uniapp/IBeacon (from `..`)
-  - uniapp/Log (from `..`)
-  - uniapp/Messaging (from `..`)
-  - uniapp/Orientation (from `..`)
-  - uniapp/Proximity (from `..`)
-  - uniapp/Sqlite (from `..`)
-  - uniapp/XMLHttpRequest (from `..`)
-  - uniapp/Zip (from `..`)
-  - "unimoduleZynXiluAd (from `/Volumes/zyn/文稿/ADWork/5.24/SDK/sdk_uniapp_iosDemo/UTSPlugins/.generated/unimoduleZynXiluAd`)"
+  - uniapp/Audio (from `./SDK`)
+  - uniapp/CameraGallery (from `./SDK`)
+  - uniapp/Canvas (from `./SDK`)
+  - uniapp/Contacts (from `./SDK`)
+  - uniapp/Core (from `./SDK`)
+  - uniapp/File (from `./SDK`)
+  - uniapp/Fingerprint (from `./SDK`)
+  - uniapp/Geolocation (from `./SDK`)
+  - uniapp/Geolocation-Tencent (from `./SDK`)
+  - uniapp/IBeacon (from `./SDK`)
+  - uniapp/Log (from `./SDK`)
+  - uniapp/Messaging (from `./SDK`)
+  - uniapp/Orientation (from `./SDK`)
+  - uniapp/Proximity (from `./SDK`)
+  - uniapp/Sqlite (from `./SDK`)
+  - uniapp/XMLHttpRequest (from `./SDK`)
+  - uniapp/Zip (from `./SDK`)
+  - "unimoduleZynXiluAd (from `/Volumes/zyn/文稿/ADWork/sdk_uniapp_iosDemo/UTSPlugins/.generated/unimoduleZynXiluAd`)"
   - xiluAdSdk (from `https://github.com/UnAmico0/xiluAdSdk_ios_pod.git`, tag `1.0.12`)
 
 SPEC REPOS:
@@ -118,9 +118,9 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   uniapp:
-    :path: ".."
+    :path: "./SDK"
   unimoduleZynXiluAd:
-    :path: "/Volumes/zyn/文稿/ADWork/5.24/SDK/sdk_uniapp_iosDemo/UTSPlugins/.generated/unimoduleZynXiluAd"
+    :path: "/Volumes/zyn/文稿/ADWork/sdk_uniapp_iosDemo/UTSPlugins/.generated/unimoduleZynXiluAd"
   xiluAdSdk:
     :git: https://github.com/UnAmico0/xiluAdSdk_ios_pod.git
     :tag: 1.0.12
@@ -144,6 +144,6 @@ SPEC CHECKSUMS:
   unimoduleZynXiluAd: 8f483ba0d9a3645197ecaf303ac0bab01cd32989
   xiluAdSdk: 6530cccb076c33f9f306a7bd11bf8e662f6a55cf
 
-PODFILE CHECKSUM: 541b65019daf14a54e2f440240df3198072b56b0
+PODFILE CHECKSUM: dc6166b0d462ebccf61b74642b7e2e765140e817
 
 COCOAPODS: 1.16.2
