@@ -1,0 +1,149 @@
+PODS:
+  - Ads-CN/BUAdLive (7.4.0.4)
+  - Ads-CN/BUAdLive-Framework (7.4.0.4):
+    - Ads-CN/BUAdLive
+    - BUTTSDKFramework/LivePull-Lite (= 1.48.2.3-premium)
+  - Ads-CN/BUAdSDK (7.4.0.4)
+  - Ads-CN/CSJMediation (7.4.0.4):
+    - Ads-CN/BUAdLive-Framework
+    - Ads-CN/CSJMediation-Only
+  - Ads-CN/CSJMediation-Only (7.4.0.4):
+    - Ads-CN/BUAdSDK
+  - BaiduMobAdSDK (10.050)
+  - BeiZiSDK-iOS (4.90.7.0):
+    - BeiZiSDK-iOS/BeiZiSDK-iOS (= 4.90.7.0)
+  - BeiZiSDK-iOS/BeiZiSDK-iOS (4.90.7.0)
+  - BUTTSDKFramework/Core (1.48.2.3-premium)
+  - BUTTSDKFramework/LiveBase (1.48.2.3-premium):
+    - BUTTSDKFramework/Core
+    - BUTTSDKFramework/Reachability
+  - BUTTSDKFramework/LivePlayer/Base (1.48.2.3-premium):
+    - BUTTSDKFramework/Core
+    - BUTTSDKFramework/LiveBase
+    - BUTTSDKFramework/LivePull-VolcLog
+    - BUTTSDKFramework/Reachability
+  - BUTTSDKFramework/LivePlayer/Lite (1.48.2.3-premium):
+    - BUTTSDKFramework/LivePlayer/Base
+    - BUTTSDKFramework/PlayerCore/LiveLite
+  - BUTTSDKFramework/LivePull-Lite (1.48.2.3-premium):
+    - BUTTSDKFramework/LivePlayer/Lite
+    - BUTTSDKFramework/Strategy/Lite
+  - BUTTSDKFramework/LivePull-VolcLog (1.48.2.3-premium):
+    - BUTTSDKFramework/VolcLog
+  - BUTTSDKFramework/PlayerCore/Base (1.48.2.3-premium):
+    - BUTTSDKFramework/Core
+  - BUTTSDKFramework/PlayerCore/LiveLite (1.48.2.3-premium):
+    - BUTTSDKFramework/PlayerCore/Base
+    - BUTTSDKFramework/TTFFmpeg/LiveLite
+  - BUTTSDKFramework/Reachability (1.48.2.3-premium)
+  - BUTTSDKFramework/Strategy/Core (1.48.2.3-premium):
+    - BUTTSDKFramework/LiveBase
+    - BUTTSDKFramework/Reachability
+  - BUTTSDKFramework/Strategy/Lite (1.48.2.3-premium):
+    - BUTTSDKFramework/LivePlayer/Lite
+    - BUTTSDKFramework/Strategy/Core
+  - BUTTSDKFramework/TTFFmpeg/LiveLite (1.48.2.3-premium)
+  - BUTTSDKFramework/VolcLog (1.48.2.3-premium)
+  - CryptoSwift (1.8.4)
+  - GDTMobSDK (4.15.65)
+  - KSAdSDK (5.7.20.1)
+  - MSMobAdSDK/MotionLess (2.7.7.3)
+  - MSMobAdSDK/MS (2.7.7.3):
+    - MSMobAdSDK/MotionLess
+  - SnapKit (5.7.1)
+  - uniapp/Audio (5.25.0)
+  - uniapp/CameraGallery (5.25.0)
+  - uniapp/Canvas (5.25.0)
+  - uniapp/Contacts (5.25.0)
+  - uniapp/Core (5.25.0)
+  - uniapp/File (5.25.0)
+  - uniapp/Fingerprint (5.25.0)
+  - uniapp/Geolocation (5.25.0)
+  - uniapp/Geolocation-Tencent (5.25.0):
+    - uniapp/Core
+    - uniapp/Geolocation
+  - uniapp/IBeacon (5.25.0)
+  - uniapp/Log (5.25.0)
+  - uniapp/Messaging (5.25.0)
+  - uniapp/Orientation (5.25.0)
+  - uniapp/Proximity (5.25.0)
+  - uniapp/Sqlite (5.25.0)
+  - uniapp/XMLHttpRequest (5.25.0)
+  - uniapp/Zip (5.25.0)
+  - unimoduleZynXiluAd (1.0.0):
+    - uniapp/Core
+    - xiluAdSdk
+  - xiluAdSdk (1.0.12):
+    - Ads-CN/CSJMediation (= 7.4.0.4)
+    - BaiduMobAdSDK (= 10.050)
+    - BeiZiSDK-iOS (= 4.90.7.0)
+    - CryptoSwift (= 1.8.4)
+    - GDTMobSDK (= 4.15.65)
+    - KSAdSDK
+    - MSMobAdSDK/MS (= 2.7.7.3)
+    - SnapKit
+
+DEPENDENCIES:
+  - uniapp/Audio (from `..`)
+  - uniapp/CameraGallery (from `..`)
+  - uniapp/Canvas (from `..`)
+  - uniapp/Contacts (from `..`)
+  - uniapp/Core (from `..`)
+  - uniapp/File (from `..`)
+  - uniapp/Fingerprint (from `..`)
+  - uniapp/Geolocation (from `..`)
+  - uniapp/Geolocation-Tencent (from `..`)
+  - uniapp/IBeacon (from `..`)
+  - uniapp/Log (from `..`)
+  - uniapp/Messaging (from `..`)
+  - uniapp/Orientation (from `..`)
+  - uniapp/Proximity (from `..`)
+  - uniapp/Sqlite (from `..`)
+  - uniapp/XMLHttpRequest (from `..`)
+  - uniapp/Zip (from `..`)
+  - "unimoduleZynXiluAd (from `/Volumes/zyn/文稿/ADWork/5.24/SDK/sdk_uniapp_iosDemo/UTSPlugins/.generated/unimoduleZynXiluAd`)"
+  - xiluAdSdk (from `https://github.com/UnAmico0/xiluAdSdk_ios_pod.git`, tag `1.0.12`)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Ads-CN
+    - BaiduMobAdSDK
+    - BeiZiSDK-iOS
+    - BUTTSDKFramework
+    - CryptoSwift
+    - GDTMobSDK
+    - KSAdSDK
+    - MSMobAdSDK
+    - SnapKit
+
+EXTERNAL SOURCES:
+  uniapp:
+    :path: ".."
+  unimoduleZynXiluAd:
+    :path: "/Volumes/zyn/文稿/ADWork/5.24/SDK/sdk_uniapp_iosDemo/UTSPlugins/.generated/unimoduleZynXiluAd"
+  xiluAdSdk:
+    :git: https://github.com/UnAmico0/xiluAdSdk_ios_pod.git
+    :tag: 1.0.12
+
+CHECKOUT OPTIONS:
+  xiluAdSdk:
+    :git: https://github.com/UnAmico0/xiluAdSdk_ios_pod.git
+    :tag: 1.0.12
+
+SPEC CHECKSUMS:
+  Ads-CN: 1e14aa075f1bd09b110472f39aa7d31f916313aa
+  BaiduMobAdSDK: cc8a2e7deeec4d0365532bcf326f4e77641ed446
+  BeiZiSDK-iOS: 2390c31d6e68f3d065fb21179530985f29d7b436
+  BUTTSDKFramework: 34f8f8d541da07e79e9c479eb71336d1e4d90fdd
+  CryptoSwift: e64e11850ede528a02a0f3e768cec8e9d92ecb90
+  GDTMobSDK: f3aefaaca7a7393300a7b4f667d361250ac764b4
+  KSAdSDK: fe45a06124dbe83cfb2ef860769b583f3470b11c
+  MSMobAdSDK: 0b116d5d37a6ebba3d30b0066b8a56918547a94f
+  SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
+  uniapp: 7978568d79779961462eac03ce77de5d7a31715d
+  unimoduleZynXiluAd: 8f483ba0d9a3645197ecaf303ac0bab01cd32989
+  xiluAdSdk: 6530cccb076c33f9f306a7bd11bf8e662f6a55cf
+
+PODFILE CHECKSUM: 541b65019daf14a54e2f440240df3198072b56b0
+
+COCOAPODS: 1.16.2
