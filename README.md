@@ -1,4 +1,4 @@
-# sdk_uniapp_iosDemo 进行pod install的时候,需要再Podfile本地目录把uniapp提供的插件SDK复制过来  SDK里面的目录是这样的
+## sdk_uniapp_iosDemo进行pod install之前,把uniapp官方提供的插件SDK复制到Podfile同级目录, SDK目录结构如下
 ```
 SDK/
 ├── Bundles/                   
