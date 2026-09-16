@@ -10,6 +10,7 @@
 		2F0BA3F9215B48A700F67004 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F0BA3F8215B48A700F67004 /* Images.xcassets */; };
 		2F0BA4DC215BA12300F67004 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F0BA4DB215BA12300F67004 /* LaunchScreen.storyboard */; };
 		2FDE6A3F296D7568004C7701 /* DCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDE6A3E296D7568004C7701 /* DCloud.swift */; };
+		3043A1A3305A7475000FC0CA /* UIView+H5PUIToastBlocker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3043A1A2305A7475000FC0CA /* UIView+H5PUIToastBlocker.m */; };
 		30F5847D3057BC8B00EA74E9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 30F5847B3057BC8B00EA74E9 /* README.md */; };
 		30F5847E3057BC8B00EA74E9 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 30F5847A3057BC8B00EA74E9 /* .gitkeep */; };
 		30F584803057BC9C00EA74E9 /* uni_modules in Resources */ = {isa = PBXBuildFile; fileRef = 30F5847F3057BC9C00EA74E9 /* uni_modules */; };
@@ -46,6 +47,8 @@
 		2F0BA4DB215BA12300F67004 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2FDE6A3D296D7568004C7701 /* sdk_uniapp_iosDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sdk_uniapp_iosDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		2FDE6A3E296D7568004C7701 /* DCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCloud.swift; sourceTree = "<group>"; };
+		3043A1A1305A7475000FC0CA /* UIView+H5PUIToastBlocker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+H5PUIToastBlocker.h"; sourceTree = "<group>"; };
+		3043A1A2305A7475000FC0CA /* UIView+H5PUIToastBlocker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+H5PUIToastBlocker.m"; sourceTree = "<group>"; };
 		30F5847A3057BC8B00EA74E9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		30F5847B3057BC8B00EA74E9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		30F5847F3057BC9C00EA74E9 /* uni_modules */ = {isa = PBXFileReference; lastKnownFileType = folder; path = uni_modules; sourceTree = "<group>"; };
@@ -133,6 +136,8 @@
 			children = (
 				8EED62AA198A1D13000A4449 /* AppDelegate.h */,
 				8EED62AB198A1D13000A4449 /* AppDelegate.m */,
+				3043A1A1305A7475000FC0CA /* UIView+H5PUIToastBlocker.h */,
+				3043A1A2305A7475000FC0CA /* UIView+H5PUIToastBlocker.m */,
 				8EED658F198A3DF7000A4449 /* Pandora */,
 				8EED62A2198A1D13000A4449 /* Supporting Files */,
 				8EED62B3198A1D14000A4449 /* ViewController.h */,
@@ -399,6 +404,7 @@
 				8EED62B5198A1D14000A4449 /* ViewController.m in Sources */,
 				8EED62AC198A1D13000A4449 /* AppDelegate.m in Sources */,
 				2FDE6A3F296D7568004C7701 /* DCloud.swift in Sources */,
+				3043A1A3305A7475000FC0CA /* UIView+H5PUIToastBlocker.m in Sources */,
 				8EED62A8198A1D13000A4449 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
