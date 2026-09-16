@@ -12,8 +12,7 @@
 #import "ViewController.h"
 #import "PDRCoreApp.h"
 #import "PDRCoreAppManager.h"
-
-
+#import "UIView+H5PUIToastBlocker.h"
 @interface AppDelegate()<PDRCoreDelegate>
 @property (strong, nonatomic) ViewController *h5ViewContoller;
 @end
