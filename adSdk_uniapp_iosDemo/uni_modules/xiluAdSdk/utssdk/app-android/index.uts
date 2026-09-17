@@ -1,0 +1,22 @@
+/**
+ * xiluAdSdk 仅支持 iOS 平台，Android 暂未实现。
+ * 此处保留空实现以保证插件目录结构完整。
+ */
+import { XiluInitOptions, XiluLoadAdOptions } from '../interface.uts';
+
+export const initSDK = function (options: XiluInitOptions): void {
+  options.fail?.("xiluAdSdk 暂不支持 Android 平台");
+  options.complete?.();
+};
+
+export const isInitialized = function (): boolean {
+  return false;
+};
+
+export const loadSplashAd = function (_options: XiluLoadAdOptions): void {};
+export const loadBannerAd = function (_options: XiluLoadAdOptions): void {};
+export const loadInterstitialAd = function (_options: XiluLoadAdOptions): void {};
+export const loadRewardVideoAd = function (_options: XiluLoadAdOptions): void {};
+export const loadNativeTemplateAd = function (_options: XiluLoadAdOptions): void {};
+export const loadNativeRenderAd = function (_options: XiluLoadAdOptions): void {};
+export const destroyAd = function (_type: string): void {};

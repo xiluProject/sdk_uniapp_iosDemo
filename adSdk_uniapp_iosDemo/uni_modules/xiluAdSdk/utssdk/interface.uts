@@ -1,0 +1,118 @@
+/**
+ * interface.uts
+ * xiluAdSdk 插件接口定义（iOS xiluAdSdk 聚合广告）
+ */
+
+/**
+ * SDK 初始化参数
+ */
+export type XiluInitOptions = {
+  /** 在 xilu 广告平台申请的 AppId */
+  appId: string
+  /** 是否开启调试日志，默认 false */
+  debug?: boolean
+  success?: (message: string) => void
+  fail?: (errMsg: string) => void
+  complete?: () => void
+}
+
+/**
+ * 广告生命周期事件回调
+ */
+export type XiluAdEvents = {
+  /**
+   * 广告加载成功。
+   * 注意：SDK 不再自动展示，业务方需要在 onReceive 中主动调用
+   * 对应的 showXxxAd() 才能展示（splash / banner / interstitial /
+   * rewardVideo / nativeTemplate / nativeRender 都是如此）。
+   */
+  onReceive?: () => void
+  /** 广告加载/播放失败 */
+  onFail?: (message: string) => void
+  /** 广告被点击 */
+  onClick?: () => void
+  /** 广告关闭 */
+  onClose?: () => void
+  /** 广告曝光 */
+  onExpose?: () => void
+  /** 广告跳过（开屏） */
+  onSkip?: () => void
+  /** 倒计时（开屏），remaining 单位秒 */
+  onTick?: (remaining: number) => void
+  /** 激励视频达到奖励条件 */
+  onReward?: () => void
+  /** 激励视频播放完成 */
+  onVideoComplete?: () => void
+}
+
+/**
+ * 加载广告的统一参数
+ */
+export type XiluLoadAdOptions = {
+  /** 广告位 Id */
+  posId: string
+  /**
+   * 原生广告视图（banner / 信息流）悬浮在 keyWindow 上的顶部偏移（pt，窗口坐标）。
+   * banner 不传时默认贴屏幕底部；信息流默认 140
+   */
+  top?: number
+  /** 容器左边距（pt，窗口坐标），默认 0（贴屏幕左边） */
+  left?: number
+  /** 容器宽度（pt），banner 默认屏幕宽，信息流默认屏幕宽 */
+  width?: number
+  /** 原生广告容器高度（pt），banner 默认 60，信息流默认铺满剩余屏幕 */
+  height?: number
+  /** 信息流一次请求的广告数量，默认 3 */
+  count?: number
+  /** 事件回调集合 */
+  events?: XiluAdEvents
+}
+
+// ============================================================
+// 导出 API 类型
+// ============================================================
+
+/** 初始化 SDK */
+export type XiluInitSDK = (options: XiluInitOptions) => void
+/** SDK 是否已初始化 */
+export type XiluIsInitialized = () => boolean
+
+/** 加载开屏广告（仅加载，不展示） */
+export type XiluLoadSplashAd = (options: XiluLoadAdOptions) => void
+/** 展示开屏广告（需在 onReceive 中调用） */
+export type XiluShowSplashAd = () => void
+
+/** 加载 Banner 广告（仅加载，不展示） */
+export type XiluLoadBannerAd = (options: XiluLoadAdOptions) => void
+/** 展示 Banner 广告（需在 onReceive 中调用，展示到占位容器上） */
+export type XiluShowBannerAd = () => void
+
+/** 加载插屏广告（仅加载，不弹出） */
+export type XiluLoadInterstitialAd = (options: XiluLoadAdOptions) => void
+/** 展示插屏广告（需在 onReceive 中调用） */
+export type XiluShowInterstitialAd = () => void
+
+/** 加载激励视频广告（仅加载，不播放） */
+export type XiluLoadRewardVideoAd = (options: XiluLoadAdOptions) => void
+/** 展示激励视频广告（需在 onReceive 中调用） */
+export type XiluShowRewardVideoAd = () => void
+
+/** 加载信息流模板广告（仅加载，不渲染） */
+export type XiluLoadNativeTemplateAd = (options: XiluLoadAdOptions) => void
+/** 展示信息流模板广告（需在 onReceive 中调用，渲染到原生容器） */
+export type XiluShowNativeTemplateAd = () => void
+
+/** 加载信息流自渲染广告（仅加载，不渲染） */
+export type XiluLoadNativeRenderAd = (options: XiluLoadAdOptions) => void
+/** 展示信息流自渲染广告（需在 onReceive 中调用，渲染到原生容器） */
+export type XiluShowNativeRenderAd = () => void
+
+/** 往信息流容器追加本地测试卡片 */
+export type XiluAddNativeTestCards = (count: number) => void
+/** 将 banner 提到最前 */
+export type XiluBringBannerToFront = () => void
+/** 将 banner 沉到最后 */
+export type XiluSendBannerToBack = () => void
+
+/** 销毁指定广告实例 */
+export type XiluDestroyAd = (type: string) => void

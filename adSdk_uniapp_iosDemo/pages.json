@@ -1,0 +1,53 @@
+{
+	"pages": [
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "xiluAdSdk 广告示例"
+			}
+		},
+		{
+			"path": "pages/ad/splash/splash",
+			"style": {
+				"navigationBarTitleText": "开屏广告"
+			}
+		},
+		{
+			"path": "pages/ad/banner/banner",
+			"style": {
+				"navigationBarTitleText": "Banner 广告"
+			}
+		},
+		{
+			"path": "pages/ad/interstitial/interstitial",
+			"style": {
+				"navigationBarTitleText": "插屏广告"
+			}
+		},
+		{
+			"path": "pages/ad/reward/reward",
+			"style": {
+				"navigationBarTitleText": "激励视频广告"
+			}
+		},
+		{
+			"path": "pages/ad/native-template/native-template",
+			"style": {
+				"navigationBarTitleText": "信息流模板广告"
+			}
+		},
+		{
+			"path": "pages/ad/native-render/native-render",
+			"style": {
+				"navigationBarTitleText": "信息流自渲染广告"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"uniIdRouter": {}
+}

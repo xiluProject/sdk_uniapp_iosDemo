@@ -1,0 +1,1050 @@
+/**
+ * xiluAdSdk
+ * iOS xiluAdSdk（ADXiluSDK）聚合广告 UTS 封装
+ */
+
+import {
+  ADXiluSDKManager,
+  ADXiluAdSize,
+  ADXiluBaseAd,
+  ADXiluAdInfo,
+  ADXiluError,
+  ADXiluAdPlatform,
+  ADXiluBannerAd,
+  ADXiluInterstitialAd,
+  ADXiluRewardVodAd,
+  ADXiluSplashAd,
+  ADXiluSplashAdStyle,
+  ADXiluNativeAd,
+  ADXiluBaseAdDelegate,
+  ADXiluRewardVodAdDelegate
+} from 'ADXiluSDK';
+import { MSNativeFeedAdModel, MSNativeCustomAdView, MSCreativeType } from 'MSAdSDK';
+import { GDTUnifiedNativeAdView, GDTUnifiedNativeAdDataObject } from 'GDTMobSDK';
+import {
+  UIApplication,
+  UIWindow,
+  UIViewController,
+  UINavigationController,
+  UITabBarController,
+  UIView,
+  UIScrollView,
+  UIImageView,
+  UILabel,
+  UIButton,
+  UIControl,
+  NSTextAlignment,
+  UIImage,
+  UIColor,
+  UIFont,
+  UIScreen,
+  CGRectMake,
+  CGSizeMake
+} from 'UIKit';
+import { NSObject, NSNumber, URL, NSData, Data, DispatchQueue, Thread } from 'Foundation';
+import { CGRect, CGSize, CGFloat } from 'CoreGraphics';
+
+import {
+  XiluInitOptions,
+  XiluLoadAdOptions,
+  XiluAdEvents
+} from '../interface.uts';
+
+// ============================================================
+// 模块级状态
+// ============================================================
+
+let splashAd: ADXiluSplashAd | null = null;
+let splashDelegate: BaseAdDelegate | null = null;
+
+let bannerAd: ADXiluBannerAd | null = null;
+let bannerDelegate: BaseAdDelegate | null = null;
+let bannerContainer: UIView | null = null;
+
+let interstitialAd: ADXiluInterstitialAd | null = null;
+let interstitialDelegate: BaseAdDelegate | null = null;
+let interstitialVC: UIViewController | null = null;
+
+let rewardVideoAd: ADXiluRewardVodAd | null = null;
+let rewardVideoDelegate: RewardVideoDelegate | null = null;
+let rewardVideoVC: UIViewController | null = null;
+
+let nativeAd: ADXiluNativeAd | null = null;
+let nativeDelegate: NativeAdDelegate | null = null;
+let nativeContainer: UIScrollView | null = null;
+let nativeContentY: number = 0;
+let nativeWindow: UIWindow | null = null;
+
+// ============================================================
+// 工具方法
+// ============================================================
+
+function runOnMain(block: () => void): void {
+  if (Thread.isMainThread) {
+    block();
+  } else {
+    DispatchQueue.main.async(execute = block);
+  }
+}
+
+function num(v: CGFloat): number {
+  return NSNumber(value = Double(v));
+}
+
+function cgf(v: number): CGFloat {
+  return CGFloat((v as NSNumber).doubleValue);
+}
+
+function cgi(v: number): Int {
+  return (v as NSNumber).intValue;
+}
+
+function xRect(x: number, y: number, w: number, h: number): CGRect {
+  return CGRectMake(cgf(x), cgf(y), cgf(w), cgf(h));
+}
+
+function xSize(w: number, h: number): CGSize {
+  return CGSizeMake(cgf(w), cgf(h));
+}
+
+function screenWidth(): number {
+  return num(UIScreen.main.bounds.size.width);
+}
+
+function screenHeight(): number {
+  return num(UIScreen.main.bounds.size.height);
+}
+
+function getKeyWindow(): UIWindow | null {
+  const app = UIApplication.shared;
+  const kw = app.keyWindow;
+  if (kw != null) {
+    return kw;
+  }
+  const wins = app.windows;
+  for (let i = 0; i < wins.length; i++) {
+    if (wins[i].isKeyWindow) {
+      return wins[i];
+    }
+  }
+  return wins.length > 0 ? wins[0] : null;
+}
+
+function safeAreaBottom(): number {
+  if (nativeWindow != null) {
+    return num(nativeWindow!.safeAreaInsets.bottom);
+  }
+  const win = getKeyWindow();
+  if (win != null) {
+    return num(win!.safeAreaInsets.bottom);
+  }
+  return 0;
+}
+
+function platformName(p: ADXiluAdPlatform): string {
+  if (p == ADXiluAdPlatform.beizi) {
+    return "倍孜Beizi";
+  } else if (p == ADXiluAdPlatform.ms) {
+    return "美数MS";
+  } else if (p == ADXiluAdPlatform.gdt) {
+    return "优量汇GDT";
+  } else if (p == ADXiluAdPlatform.csj) {
+    return "穿山甲CSJ";
+  } else if (p == ADXiluAdPlatform.bqt) {
+    return "百度百青藤BQT";
+  } else if (p == ADXiluAdPlatform.ks) {
+    return "快手KS";
+  }
+  return "全部渠道All";
+}
+
+function topViewController(vc: UIViewController | null): UIViewController | null {
+  let current = vc;
+  for (let i = 0; i < 10; i++) {
+    if (current == null) {
+      break;
+    }
+    if (current!.presentedViewController != null) {
+      current = current!.presentedViewController;
+    } else if (current instanceof UINavigationController) {
+      current = (current as UINavigationController).visibleViewController;
+    } else if (current instanceof UITabBarController) {
+      current = (current as UITabBarController).selectedViewController;
+    } else {
+      break;
+    }
+  }
+  return current;
+}
+
+function getTopViewController(): UIViewController | null {
+  const win = getKeyWindow();
+  if (win == null) {
+    return null;
+  }
+  return topViewController(win!.rootViewController);
+}
+
+function loadRemoteImage(imageView: UIImageView, urlStr: string | null): void {
+  if (urlStr == null || urlStr!.length == 0) {
+    return;
+  }
+  const url = URL(string = urlStr!);
+  if (url == null) {
+    return;
+  }
+  DispatchQueue.global().async(execute = () => {
+    const data = NSData(contentsOf = url!);
+    if (data == null) {
+      return;
+    }
+    const img = UIImage(data = data as Data);
+    if (img == null) {
+      return;
+    }
+    DispatchQueue.main.async(execute = () => {
+      imageView.image = img!;
+    });
+  });
+}
+
+type xilu_Rect = { x: number, y: number, w: number, h: number };
+
+function makeLabel(frame: xilu_Rect, text: string | null, fontSize: number,
+  color: UIColor, lines: number): UILabel {
+  const label = UILabel();
+  label.frame = xRect(frame.x, frame.y, frame.w, frame.h);
+  label.text = text;
+  label.font = UIFont.systemFont(ofSize = cgf(fontSize));
+  label.textColor = color;
+  label.numberOfLines = cgi(lines);
+  return label;
+}
+
+function makeTipView(width: number, text: string): UIView {
+  const tip = UIView();
+  tip.frame = xRect(0, 0, width, 44);
+  tip.backgroundColor = UIColor(red = 0.96, green = 0.96, blue = 0.96, alpha = 1);
+  const label = makeLabel({ x: 12, y: 0, w: width - 24, h: 44 }, text, 12,
+    UIColor(red = 0.45, green = 0.45, blue = 0.45, alpha = 1), 1);
+  tip.addSubview(label);
+  return tip;
+}
+
+function removeView(view: UIView | null): void {
+  if (view != null) {
+    view!.removeFromSuperview();
+  }
+}
+
+function keepAlive(...refs: Array<any>): void {
+  if (refs.length < 0) {
+    console.log("");
+  }
+}
+
+// ============================================================
+// native 专用 window
+// ============================================================
+
+function ensureNativeWindow(top: number, height: number): UIWindow {
+  const width = screenWidth();
+  if (nativeWindow != null) {
+    nativeWindow!.frame = xRect(0, top, width, height);
+    return nativeWindow!;
+  }
+  const win = UIWindow(frame = xRect(0, top, width, height));
+  win.windowLevel = UIWindow.Level.alert - 1;
+  win.backgroundColor = UIColor.clear;
+  win.rootViewController = UIViewController();
+  win.isHidden = false;
+  nativeWindow = win;
+  console.log(`[xiluAdSdk] 已创建 native 专用 window frame=(0,${top},${width},${height})`);
+  return win;
+}
+
+function destroyNativeWindow(): void {
+  if (nativeWindow != null) {
+    nativeWindow!.isHidden = true;
+    nativeWindow!.rootViewController = null;
+    nativeWindow = null;
+    console.log("[xiluAdSdk] 已销毁 native 专用 window");
+  }
+}
+
+function clearNativeContainer(): void {
+  removeView(nativeContainer);
+  nativeContainer = null;
+  nativeContentY = 0;
+}
+
+// ============================================================
+// 高度测量 / 测试卡片
+// ============================================================
+
+function measureViewHeight(view: UIView, width: number, fallback: number): number {
+  const frameH = num(view.frame.size.height);
+  if (frameH > 10) {
+    return frameH;
+  }
+  const fitSize = view.sizeThatFits(xSize(width, 10000));
+  const fitH = num(fitSize.height);
+  if (fitH > 10) {
+    return fitH;
+  }
+  return fallback;
+}
+
+function makeMockNativeCard(width: number, index: number): UIView {
+  const cardH = 180;
+  const card = UIView();
+  card.frame = xRect(0, 0, width, cardH);
+  card.backgroundColor = UIColor.white;
+  card.layer.cornerRadius = 8;
+  card.layer.masksToBounds = true;
+
+  const icon = UIView();
+  icon.frame = xRect(12, 12, 60, 60);
+  icon.backgroundColor = UIColor(red = 0.85, green = 0.87, blue = 0.92, alpha = 1);
+  icon.layer.cornerRadius = 6;
+  icon.layer.masksToBounds = true;
+  card.addSubview(icon);
+
+  const iconLabel = makeLabel({ x: 12, y: 32, w: 60, h: 20 },
+    `#${index}`, 14, UIColor(red = 0.4, green = 0.45, blue = 0.55, alpha = 1), 1);
+  iconLabel.textAlignment = NSTextAlignment.center;
+  card.addSubview(iconLabel);
+
+  const title = makeLabel({ x: 84, y: 12, w: width - 100, h: 24 },
+    `测试广告卡片 #${index}`, 16, UIColor.black, 1);
+  card.addSubview(title);
+
+  const desc = makeLabel({ x: 84, y: 40, w: width - 100, h: 20 },
+    "这是一条用于验证滚动布局的本地占位数据", 13, UIColor.darkGray, 1);
+  card.addSubview(desc);
+
+  const cta = makeLabel({ x: 84, y: 68, w: 90, h: 30 },
+    "查看详情", 13, UIColor.white, 1);
+  cta.textAlignment = NSTextAlignment.center;
+  cta.backgroundColor = UIColor(red = 0.2, green = 0.55, blue = 0.95, alpha = 1);
+  cta.layer.cornerRadius = 6;
+  cta.layer.masksToBounds = true;
+  card.addSubview(cta);
+
+  const bigImg = UIView();
+  bigImg.frame = xRect(12, 84, width - 24, 84);
+  bigImg.backgroundColor = UIColor(red = 0.9, green = 0.92, blue = 0.96, alpha = 1);
+  bigImg.layer.cornerRadius = 6;
+  bigImg.layer.masksToBounds = true;
+  card.addSubview(bigImg);
+
+  const imgTip = makeLabel({ x: 12, y: 118, w: width - 24, h: 20 },
+    `素材占位图 ${index}`, 13, UIColor(red = 0.55, green = 0.6, blue = 0.7, alpha = 1), 1);
+  imgTip.textAlignment = NSTextAlignment.center;
+  card.addSubview(imgTip);
+
+  return card;
+}
+
+// ============================================================
+// 信息流自渲染视图构建（美数 MS / 优量汇 GDT）
+// ============================================================
+
+function buildMSCard(model: MSNativeFeedAdModel, vc: UIViewController, width: number): UIView | null {
+  const meta = model.adMaterialMeta;
+  if (meta == null) {
+    return null;
+  }
+  const ctype = meta!.metaCreativeType();
+  const isThree = ctype == MSCreativeType.threeImage;
+  const isSmall = ctype == MSCreativeType.smallImage;
+  const cardH: number = isThree || isSmall ? 186 : 216;
+
+  const card = MSNativeCustomAdView();
+  card.frame = xRect(0, 0, width, cardH);
+  card.backgroundColor = UIColor.white;
+
+  const closeBtn = UIButton(type = UIButton.ButtonType.custom);
+  closeBtn.frame = xRect(width - 30, 6, 24, 24);
+  closeBtn.setTitle("×", for = UIControl.State.normal);
+  closeBtn.setTitleColor(UIColor.gray, for = UIControl.State.normal);
+  closeBtn.titleLabel!.font = UIFont.systemFont(ofSize = 20);
+
+  const logoView = meta!.metaLogo();
+  logoView.frame = xRect(width - 52, 10, 16, 16);
+  logoView.contentMode = UIView.ContentMode.scaleAspectFit;
+
+  const iconView = UIImageView();
+  iconView.frame = xRect(12, 10, 44, 44);
+  iconView.contentMode = UIView.ContentMode.scaleAspectFill;
+  iconView.clipsToBounds = true;
+  loadRemoteImage(iconView, meta!.metaIcon());
+
+  const titleLabel = makeLabel({ x: 66, y: 8, w: width - 150, h: 22 },
+    meta!.metaTitle(), 16, UIColor.black, 1);
+  const descLabel = makeLabel({ x: 66, y: 32, w: width - 90, h: 18 },
+    meta!.metaContent(), 13, UIColor.darkGray, 1);
+
+  const actionTitle = meta!.metaActionTitle();
+  const actionLabel = makeLabel({ x: width - 92, y: 10, w: 80, h: 30 },
+    actionTitle != null ? actionTitle! : "查看详情", 13,
+    UIColor(red = 0.95, green = 0.45, blue = 0.1, alpha = 1), 1);
+  actionLabel.textAlignment = NSTextAlignment.center;
+  actionLabel.backgroundColor = UIColor(red = 1, green = 0.94, blue = 0.88, alpha = 1);
+  actionLabel.layer.cornerRadius = 6;
+  actionLabel.layer.masksToBounds = true;
+
+  const sourceLabel = makeLabel({ x: 12, y: cardH - 28, w: 160, h: 18 },
+    meta!.metaSource(), 12, UIColor(red = 0.95, green = 0.45, blue = 0.1, alpha = 1), 1);
+
+  const imageViews: Array<UIImageView> = [];
+  const urls = meta!.metaImageUrls();
+  if (urls != null) {
+    if (isThree) {
+      const gap = 10;
+      const perW = (width - 24 - gap * 2) / 3;
+      for (let i = 0; i < urls!.length; i++) {
+        if (i >= 3) {
+          break;
+        }
+        const img = UIImageView();
+        img.frame = xRect(12 + i * (perW + gap), 66, perW, 90);
+        img.contentMode = UIView.ContentMode.scaleAspectFill;
+        img.clipsToBounds = true;
+        loadRemoteImage(img, urls![i]);
+        imageViews.push(img);
+      }
+    } else {
+      const img = UIImageView();
+      if (isSmall) {
+        img.frame = xRect(12, 66, 130, 90);
+      } else {
+        img.frame = xRect(12, 66, width - 24, 120);
+      }
+      img.contentMode = UIView.ContentMode.scaleAspectFill;
+      img.clipsToBounds = true;
+      loadRemoteImage(img, urls!.length > 0 ? urls![0] : null);
+      imageViews.push(img);
+    }
+  }
+
+  card.loadNativeCustomAd(with = meta!,
+    metaLogo = meta!.metaLogo(),
+    closeBtn = closeBtn,
+    imgViews = imageViews,
+    iconImageView = iconView,
+    actionLabel = actionLabel,
+    titleLabel = titleLabel,
+    sourceLabel = sourceLabel,
+    contentLabel = descLabel);
+
+  const clickViews: Array<UIView> = [iconView, titleLabel, descLabel, actionLabel, sourceLabel];
+  for (let i = 0; i < imageViews.length; i++) {
+    clickViews.push(imageViews[i]);
+  }
+  card.showNativeAd(withClick = clickViews, presentVC = vc);
+
+  return card;
+}
+
+function buildGDTCard(data: GDTUnifiedNativeAdDataObject, vc: UIViewController, width: number): UIView | null {
+  if (!data.isAdValid) {
+    return null;
+  }
+  const adView = GDTUnifiedNativeAdView();
+  adView.frame = xRect(0, 0, width, 145);
+  adView.viewController = vc;
+  adView.mediaView.frame = adView.bounds;
+  const clickables: Array<UIView> = [];
+  adView.registerDataObject(data, clickableViews = clickables);
+  return adView;
+}
+
+// ============================================================
+// Delegate
+// ============================================================
+
+class BaseAdDelegate extends NSObject implements ADXiluBaseAdDelegate {
+  protected events: XiluAdEvents;
+
+  constructor(events: XiluAdEvents) {
+    this.events = events;
+    super();
+  }
+
+  xilu_AdDidReceive(xiluAd: ADXiluBaseAd, @argumentLabel("adInfo") adInfo: ADXiluAdInfo): void {
+    console.log(`[xiluAdSdk] 广告加载成功 posId=${xiluAd.adPosId} 渠道=${platformName(adInfo.platform)} adId=${adInfo.adId} priority=${adInfo.priority} isReady=${adInfo.isReady}`);
+    runOnMain(() => {
+      this.events.onReceive?.();
+    });
+  }
+
+  xilu_AdDidFail(xiluAd: ADXiluBaseAd, @argumentLabel("error") error: ADXiluError): void {
+    const msg = `[code=${error.code}] ${error.message}`;
+    console.log(`[xiluAdSdk] 广告加载失败 posId=${xiluAd.adPosId} code=${error.code} message=${error.message} description=${error.description}`);
+    runOnMain(() => {
+      this.events.onFail?.(msg);
+    });
+  }
+
+  xilu_AdDidClick(xiluAd: ADXiluBaseAd, @argumentLabel("adInfo") adInfo: ADXiluAdInfo): void {
+    runOnMain(() => {
+      this.events.onClick?.();
+    });
+  }
+
+  xilu_AdDidClose(xiluAd: ADXiluBaseAd, @argumentLabel("adInfo") adInfo: ADXiluAdInfo): void {
+    runOnMain(() => {
+      this.events.onClose?.();
+    });
+  }
+
+  xilu_AdWillClose(xiluAd: ADXiluBaseAd, @argumentLabel("adInfo") adInfo: ADXiluAdInfo): void {}
+
+  xilu_AdDidExpose(xiluAd: ADXiluBaseAd, @argumentLabel("adInfo") adInfo: ADXiluAdInfo): void {
+    runOnMain(() => {
+      this.events.onExpose?.();
+    });
+  }
+
+  xilu_AdDidSkip(xiluAd: ADXiluBaseAd, @argumentLabel("adInfo") adInfo: ADXiluAdInfo): void {
+    runOnMain(() => {
+      this.events.onSkip?.();
+    });
+  }
+
+  xilu_AdDidReward(xiluAd: ADXiluBaseAd, @argumentLabel("adInfo") adInfo: ADXiluAdInfo): void {}
+
+  xilu_AdTick(xiluAd: ADXiluBaseAd, @argumentLabel("remainingTime") remainingTime: Double): void {
+    runOnMain(() => {
+      this.events.onTick?.(remainingTime as number);
+    });
+  }
+}
+
+class RewardVideoDelegate extends BaseAdDelegate implements ADXiluRewardVodAdDelegate {
+  xilu_AdVideoDidCache(rewardVodAd: ADXiluBaseAd, @argumentLabel("adInfo") adInfo: ADXiluAdInfo): void {}
+
+  xilu_AdVideoDidComplete(rewardVodAd: ADXiluBaseAd, @argumentLabel("adInfo") adInfo: ADXiluAdInfo): void {
+    runOnMain(() => {
+      this.events.onVideoComplete?.();
+    });
+  }
+
+  xilu_AdVideoDidError(rewardVodAd: ADXiluBaseAd, @argumentLabel("adInfo") adInfo: ADXiluAdInfo,
+    @argumentLabel("error") error: ADXiluError): void {
+    const msg = error.message;
+    runOnMain(() => {
+      this.events.onFail?.(msg);
+    });
+  }
+
+  override xilu_AdDidReward(rewardVodAd: ADXiluBaseAd, @argumentLabel("adInfo") adInfo: ADXiluAdInfo): void {
+    runOnMain(() => {
+      this.events.onReward?.();
+    });
+  }
+}
+
+class NativeAdDelegate extends BaseAdDelegate {
+  private isTemplate: boolean;
+  /** onReceive 时暂存，等业务方调 show 再渲染 */
+  private pendingAdInfos: Array<ADXiluAdInfo> = [];
+  private rendered: boolean = false;
+
+  constructor(events: XiluAdEvents, isTemplate: boolean) {
+    this.isTemplate = isTemplate;
+    super(events);
+  }
+
+  override xilu_AdDidReceive(xiluAd: ADXiluBaseAd, @argumentLabel("adInfo") adInfo: ADXiluAdInfo): void {
+    runOnMain(() => {
+      this.pendingAdInfos.push(adInfo);
+      this.events.onReceive?.();
+    });
+  }
+
+  xilu_AdDidReceiveMuti(xiluAd: ADXiluBaseAd, @argumentLabel("adInfos") adInfos: Array<ADXiluAdInfo>): void {
+    runOnMain(() => {
+      for (let i = 0; i < adInfos.length; i++) {
+        this.pendingAdInfos.push(adInfos[i]);
+      }
+      this.events.onReceive?.();
+    });
+  }
+
+  /** 由 showNativeTemplateAd / showNativeRenderAd 调用 */
+  renderPendingAdInfos(): void {
+    if (this.rendered) {
+      console.log("[xiluAdSdk] renderPendingAdInfos：已渲染，跳过");
+      return;
+    }
+    this.rendered = true;
+    console.log(`[xiluAdSdk] renderPendingAdInfos：渲染 ${this.pendingAdInfos.length} 条广告`);
+    for (let i = 0; i < this.pendingAdInfos.length; i++) {
+      this.appendSingleAdInfo(this.pendingAdInfos[i]);
+    }
+    this.pendingAdInfos = [];
+  }
+
+  private appendSingleAdInfo(adInfo: ADXiluAdInfo): void {
+    const container = nativeContainer;
+    if (container == null) {
+      console.log("[xiluAdSdk] appendSingleAdInfo：容器不存在");
+      return;
+    }
+    const width = screenWidth();
+
+    const adViewAny = adInfo.extraData["nativeAdView"];
+    if (adViewAny instanceof UIView) {
+      const adView = adViewAny as UIView;
+      const h = measureViewHeight(adView, width, 300);
+      adView.frame = xRect(0, nativeContentY, width, h);
+      container!.addSubview(adView);
+      nativeContentY += h + 8;
+      container!.contentSize = xSize(width, nativeContentY + 24);
+      console.log(`[xiluAdSdk] 模板卡片高度=${h} contentHeight=${nativeContentY}`);
+      return;
+    }
+
+    const dataAny = adInfo.extraData["nativeAdData"];
+    const vc = getTopViewController();
+    if (dataAny instanceof MSNativeFeedAdModel && vc != null) {
+      const card = buildMSCard(dataAny as MSNativeFeedAdModel, vc!, width);
+      if (card != null) {
+        const h = measureViewHeight(card!, width, 216);
+        card!.frame = xRect(0, nativeContentY, width, h);
+        container!.addSubview(card!);
+        nativeContentY += h + 8;
+        container!.contentSize = xSize(width, nativeContentY + 24);
+        console.log(`[xiluAdSdk] 美数卡片高度=${h} contentHeight=${nativeContentY}`);
+        return;
+      }
+    }
+    if (dataAny instanceof GDTUnifiedNativeAdDataObject && vc != null) {
+      const card = buildGDTCard(dataAny as GDTUnifiedNativeAdDataObject, vc!, width);
+      if (card != null) {
+        const h = measureViewHeight(card!, width, 145);
+        card!.frame = xRect(0, nativeContentY, width, h);
+        container!.addSubview(card!);
+        nativeContentY += h + 8;
+        container!.contentSize = xSize(width, nativeContentY + 24);
+        console.log(`[xiluAdSdk] 优量汇卡片高度=${h} contentHeight=${nativeContentY}`);
+        return;
+      }
+    }
+
+    if (!this.isTemplate) {
+      const tip = makeTipView(width, "该平台自渲染广告需按平台 API 自行绘制");
+      tip.frame = xRect(0, nativeContentY, width, 44);
+      container!.addSubview(tip);
+      nativeContentY += 52;
+      container!.contentSize = xSize(width, nativeContentY + 24);
+    }
+  }
+}
+
+// ============================================================
+// 导出 API
+// ============================================================
+
+export const initSDK = function (options: XiluInitOptions): void {
+  const manager = ADXiluSDKManager.shared;
+  if (manager.isInitialized) {
+    options.success?.("SDK 已初始化");
+    options.complete?.();
+    return;
+  }
+  const debug = options.debug ?? false;
+  manager.initialize(appId = options.appId,
+    debug = debug,
+    useSDKAudioSessionSetting = false,
+    completion = (success: boolean, message: string | null): void => {
+      runOnMain(() => {
+        if (success) {
+          options.success?.(message != null ? message! : "SDK 初始化成功");
+        } else {
+          options.fail?.(message != null ? message! : "SDK 初始化失败");
+        }
+        options.complete?.();
+      });
+    });
+};
+
+export const isInitialized = function (): boolean {
+  return ADXiluSDKManager.shared.isInitialized;
+};
+
+// ------------------------------------------------------------
+// 开屏
+// ------------------------------------------------------------
+
+export const loadSplashAd = function (options: XiluLoadAdOptions): void {
+  runOnMain(() => {
+    const events = options.events ?? ({} as XiluAdEvents);
+    if (!isInitialized()) {
+      events.onFail?.("SDK 未初始化");
+      return;
+    }
+    splashAd?.p_release();
+    splashAd = null;
+
+    const adSize = ADXiluAdSize.screenSize;
+    const ad = ADXiluSplashAd(adPosId = options.posId,
+      style = ADXiluSplashAdStyle.fullScreen,
+      adSize = adSize);
+    ad.countdownDuration = 5;
+    const delegate = new BaseAdDelegate(events);
+    ad.delegate = delegate;
+    splashAd = ad;
+    splashDelegate = delegate;
+
+    ad.loadAd();   // 只加载
+  });
+};
+
+export const showSplashAd = function (): void {
+  runOnMain(() => {
+    if (splashAd == null) {
+      console.log("[xiluAdSdk] showSplashAd：splashAd 为空，请先 loadSplashAd");
+      return;
+    }
+    splashAd!.showAd();
+  });
+};
+
+// ------------------------------------------------------------
+// Banner
+// ------------------------------------------------------------
+
+export const loadBannerAd = function (options: XiluLoadAdOptions): void {
+  console.log(`[xiluAdSdk] loadBannerAd 被调用 posId=${options.posId} height=${options.height ?? 60} top=${options.top ?? -1}`);
+  runOnMain(() => {
+    const events = options.events ?? ({} as XiluAdEvents);
+    if (!isInitialized()) {
+      events.onFail?.("SDK 未初始化");
+      return;
+    }
+    const vc = getTopViewController();
+    if (vc == null) {
+      events.onFail?.("无法获取 ViewController");
+      return;
+    }
+
+    bannerAd?.p_release();
+    removeView(bannerContainer);
+    bannerAd = null;
+    bannerContainer = null;
+
+    const width = options.width ?? screenWidth();
+    const left = options.left ?? 0;
+    const height = options.height ?? 60;
+    const bottom = safeAreaBottom();
+    const top = options.top ?? (screenHeight() - height - bottom);
+
+    const container = UIView();
+    container.frame = xRect(left, top, width, height);
+    container.backgroundColor = UIColor.white;
+    vc!.view.addSubview(container);
+
+    const adSize = ADXiluAdSize(width = cgf(width), height = cgf(height));
+    const ad = ADXiluBannerAd(adPosId = options.posId, adSize = adSize);
+    ad.showCloseBtn = true;
+    ad.containerView = container;
+    ad.nativeViewController = vc;
+    const delegate = new BaseAdDelegate(events);
+    ad.delegate = delegate;
+
+    bannerAd = ad;
+    bannerDelegate = delegate;
+    bannerContainer = container;
+
+    const originClose = events.onClose;
+    events.onClose = (): void => {
+      runOnMain(() => {
+        removeView(bannerContainer);
+        bannerContainer = null;
+        originClose?.();
+      });
+    };
+
+    ad.loadAd();   // 只加载
+  });
+};
+
+export const showBannerAd = function (): void {
+  runOnMain(() => {
+    if (bannerAd == null || bannerContainer == null) {
+      console.log("[xiluAdSdk] showBannerAd：未加载，请先 loadBannerAd");
+      return;
+    }
+    bannerAd!.showAd(in = bannerContainer!);
+  });
+};
+
+export const bringBannerToFront = function (): void {
+  runOnMain(() => {
+    if (bannerContainer == null) {
+      return;
+    }
+    const win = getKeyWindow();
+    if (win == null) {
+      return;
+    }
+    if (bannerContainer!.superview != win) {
+      bannerContainer!.removeFromSuperview();
+      win!.addSubview(bannerContainer!);
+    }
+    win!.bringSubviewToFront(bannerContainer!);
+    console.log("[xiluAdSdk] 已将 banner 提到最前面");
+  });
+};
+
+export const sendBannerToBack = function (): void {
+  runOnMain(() => {
+    if (bannerContainer == null) {
+      return;
+    }
+    const win = getKeyWindow();
+    if (win == null) {
+      return;
+    }
+    win!.sendSubviewToBack(bannerContainer!);
+    console.log("[xiluAdSdk] 已将 banner 沉到最底层");
+  });
+};
+
+// ------------------------------------------------------------
+// 插屏
+// ------------------------------------------------------------
+
+export const loadInterstitialAd = function (options: XiluLoadAdOptions): void {
+  runOnMain(() => {
+    const events = options.events ?? ({} as XiluAdEvents);
+    if (!isInitialized()) {
+      events.onFail?.("SDK 未初始化");
+      return;
+    }
+    const vc = getTopViewController();
+    if (vc == null) {
+      events.onFail?.("无法获取 ViewController");
+      return;
+    }
+
+    interstitialAd?.p_release();
+    interstitialAd = null;
+
+    const ad = ADXiluInterstitialAd(adPosId = options.posId,
+      adSize = ADXiluAdSize.screenSize,
+      rootVC = vc);
+    const delegate = new BaseAdDelegate(events);
+    ad.delegate = delegate;
+    interstitialAd = ad;
+    interstitialDelegate = delegate;
+    interstitialVC = vc;
+
+    ad.loadAd();   // 只加载
+  });
+};
+
+export const showInterstitialAd = function (): void {
+  runOnMain(() => {
+    if (interstitialAd == null || interstitialVC == null) {
+      console.log("[xiluAdSdk] showInterstitialAd：未加载，请先 loadInterstitialAd");
+      return;
+    }
+    interstitialAd!.showAd(from = interstitialVC!);
+  });
+};
+
+// ------------------------------------------------------------
+// 激励视频
+// ------------------------------------------------------------
+
+export const loadRewardVideoAd = function (options: XiluLoadAdOptions): void {
+  runOnMain(() => {
+    const events = options.events ?? ({} as XiluAdEvents);
+    if (!isInitialized()) {
+      events.onFail?.("SDK 未初始化");
+      return;
+    }
+    const vc = getTopViewController();
+    if (vc == null) {
+      events.onFail?.("无法获取 ViewController");
+      return;
+    }
+
+    rewardVideoAd?.p_release();
+    rewardVideoAd = null;
+
+    const ad = ADXiluRewardVodAd(adPosId = options.posId);
+    ad.isMuted = false;
+    const delegate = new RewardVideoDelegate(events);
+    ad.delegate = delegate;
+    ad.videoDelegate = delegate;
+    rewardVideoAd = ad;
+    rewardVideoDelegate = delegate;
+    rewardVideoVC = vc;
+
+    ad.loadAd();   // 只加载
+  });
+};
+
+export const showRewardVideoAd = function (): void {
+  runOnMain(() => {
+    if (rewardVideoAd == null || rewardVideoVC == null) {
+      console.log("[xiluAdSdk] showRewardVideoAd：未加载，请先 loadRewardVideoAd");
+      return;
+    }
+    rewardVideoAd!.showAd(from = rewardVideoVC!);
+  });
+};
+
+// ------------------------------------------------------------
+// 信息流
+// ------------------------------------------------------------
+
+function loadNativeAdInternal(options: XiluLoadAdOptions, isTemplate: boolean): void {
+  runOnMain(() => {
+    const events = options.events ?? ({} as XiluAdEvents);
+    if (!isInitialized()) {
+      events.onFail?.("SDK 未初始化");
+      return;
+    }
+    const vc = getTopViewController();
+    if (vc == null) {
+      events.onFail?.("无法获取 ViewController");
+      return;
+    }
+
+    nativeAd?.p_release();
+    clearNativeContainer();
+    nativeAd = null;
+
+    const width = screenWidth();
+    const top = options.top ?? 170;
+    const height = options.height ?? (screenHeight() - top - safeAreaBottom());
+
+    const host = ensureNativeWindow(top, height);
+    const container = UIScrollView();
+    container.frame = xRect(0, 0, width, height);
+    container.backgroundColor = UIColor(red = 0.97, green = 0.97, blue = 0.97, alpha = 1);
+    container.showsVerticalScrollIndicator = true;
+    container.alwaysBounceVertical = true;
+    container.contentSize = xSize(width, 0);
+    host.addSubview(container);
+    host.bringSubviewToFront(container);
+    nativeContainer = container;
+    nativeContentY = 0;
+
+    const adSize = ADXiluAdSize(width = cgf(width), height = 300);
+    const count = options.count ?? 3;
+    const ad = ADXiluNativeAd(adPosId = options.posId, adSize = adSize, count = cgi(count));
+    ad.isTemplate = isTemplate;
+    ad.nativeViewController = vc;
+    const delegate = new NativeAdDelegate(events, isTemplate);
+    ad.delegate = delegate;
+
+    nativeAd = ad;
+    nativeDelegate = delegate;
+
+    const originClose = events.onClose;
+    events.onClose = (): void => {
+      runOnMain(() => {
+        clearNativeContainer();
+        destroyNativeWindow();
+        originClose?.();
+      });
+    };
+
+    ad.loadAd();   // 只加载，onReceive 时 delegate 只暂存
+  });
+}
+
+export const loadNativeTemplateAd = function (options: XiluLoadAdOptions): void {
+  loadNativeAdInternal(options, true);
+};
+
+export const loadNativeRenderAd = function (options: XiluLoadAdOptions): void {
+  loadNativeAdInternal(options, false);
+};
+
+export const showNativeTemplateAd = function (): void {
+  runOnMain(() => {
+    if (nativeDelegate == null) {
+      console.log("[xiluAdSdk] showNativeTemplateAd：未加载，请先 loadNativeTemplateAd");
+      return;
+    }
+    nativeDelegate!.renderPendingAdInfos();
+  });
+};
+
+export const showNativeRenderAd = function (): void {
+  runOnMain(() => {
+    if (nativeDelegate == null) {
+      console.log("[xiluAdSdk] showNativeRenderAd：未加载，请先 loadNativeRenderAd");
+      return;
+    }
+    nativeDelegate!.renderPendingAdInfos();
+  });
+};
+
+export const addNativeTestCards = function (count: number): void {
+  runOnMain(() => {
+    const container = nativeContainer;
+    if (container == null) {
+      console.log("[xiluAdSdk] addNativeTestCards：容器不存在，请先 loadNativeTemplateAd 或 loadNativeRenderAd");
+      return;
+    }
+    const n = count <= 0 ? 3 : cgi(count);
+    const width = screenWidth();
+    for (let i = 0; i < n; i++) {
+      const card = makeMockNativeCard(width, i + 1);
+      const h = num(card.frame.size.height);
+      card.frame = xRect(0, nativeContentY, width, h);
+      container!.addSubview(card);
+      nativeContentY += h + 8;
+    }
+    container!.contentSize = xSize(width, nativeContentY + 24);
+    console.log(`[xiluAdSdk] 已追加 ${n} 张测试卡片，contentHeight=${nativeContentY}`);
+  });
+};
+
+// ------------------------------------------------------------
+// 销毁
+// ------------------------------------------------------------
+
+export const destroyAd = function (type: string): void {
+  runOnMain(() => {
+    keepAlive(splashDelegate, bannerDelegate, interstitialDelegate,
+      rewardVideoDelegate, nativeDelegate);
+
+    if (type == "splash") {
+      splashAd?.p_release();
+      splashAd = null as ADXiluSplashAd | null;
+      splashDelegate = null as BaseAdDelegate | null;
+    } else if (type == "banner") {
+      bannerAd?.p_release();
+      removeView(bannerContainer);
+      bannerAd = null as ADXiluBannerAd | null;
+      bannerContainer = null as UIView | null;
+      bannerDelegate = null as BaseAdDelegate | null;
+    } else if (type == "interstitial") {
+      interstitialAd?.p_release();
+      interstitialAd = null as ADXiluInterstitialAd | null;
+      interstitialDelegate = null as BaseAdDelegate | null;
+      interstitialVC = null as UIViewController | null;
+    } else if (type == "rewardVideo") {
+      rewardVideoAd?.p_release();
+      rewardVideoAd = null as ADXiluRewardVodAd | null;
+      rewardVideoDelegate = null as RewardVideoDelegate | null;
+      rewardVideoVC = null as UIViewController | null;
+    } else if (type == "native") {
+      nativeAd?.p_release();
+      clearNativeContainer();
+      nativeAd = null as ADXiluNativeAd | null;
+      nativeDelegate = null as NativeAdDelegate | null;
+      destroyNativeWindow();
+    }
+  });
+};

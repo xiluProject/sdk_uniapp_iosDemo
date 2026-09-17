@@ -101,7 +101,7 @@ DEPENDENCIES:
   - uniapp/Sqlite (from `./SDK`)
   - uniapp/XMLHttpRequest (from `./SDK`)
   - uniapp/Zip (from `./SDK`)
-  - "unimoduleZynXiluAd (from `/Volumes/zyn/文稿/ADWork/sdk_uniapp_iosDemo/UTSPlugins/.generated/unimoduleZynXiluAd`)"
+  - "unimoduleZynXiluAd (from `/Volumes/zyn/文稿/ADWork/sdk_uniapp_iosDemo/iOS_demo/UTSPlugins/.generated/unimoduleZynXiluAd`)"
   - xiluAdSdk (from `https://github.com/UnAmico0/xiluAdSdk_ios_pod.git`, tag `1.0.12`)
 
 SPEC REPOS:
@@ -120,7 +120,7 @@ EXTERNAL SOURCES:
   uniapp:
     :path: "./SDK"
   unimoduleZynXiluAd:
-    :path: "/Volumes/zyn/文稿/ADWork/sdk_uniapp_iosDemo/UTSPlugins/.generated/unimoduleZynXiluAd"
+    :path: "/Volumes/zyn/文稿/ADWork/sdk_uniapp_iosDemo/iOS_demo/UTSPlugins/.generated/unimoduleZynXiluAd"
   xiluAdSdk:
     :git: https://github.com/UnAmico0/xiluAdSdk_ios_pod.git
     :tag: 1.0.12
