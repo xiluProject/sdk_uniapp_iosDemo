@@ -8,7 +8,7 @@
 			</view>
 			<view class="btn-row">
 				<button class="btn" type="primary" @click="loadAd">加载广告</button>
-				<button class="btn" @click="addMock">加测试数据</button>
+				<!-- <button class="btn" @click="addMock">加测试数据</button> -->
 				<button class="btn" @click="destroy">销毁广告</button>
 			</view>
 			<text class="status" :class="statusClass">{{ statusText }}</text>
