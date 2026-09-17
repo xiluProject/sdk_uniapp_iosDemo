@@ -608,7 +608,13 @@ export default {
 
 ### 解决uni-AD业务状态异常（-9001）弹框的问题
 
-iOS原生打包的时候AppDelegate.m中导入iOS的demo工程中的\#import "UIView+H5PUIToastBlocker.h"
+在iOS项目中添加iOS_demo/sdk_uniapp_iosDemo文件夹中的UIView+H5PUIToastBlocker.h和UIView+H5PUIToastBlocker.m文件,然后在AppDelegate.m文件中导入UIView+H5PUIToastBlocker.h的头文件
+
+```js
+#import "AppDelegate.h"
+...
+#import "UIView+H5PUIToastBlocker.h"
+```
 
 
 
