@@ -17,6 +17,7 @@ xiluAdSdk 是一个支持多平台广告聚合的 iOS SDK，提供统一的 API 
 2. 把 `adSdk_uniapp_iosDemo` 中 `xiluAdSdk` 文件夹添加到您的 `uni_modules` 中（如果没有 `uni_modules`，请创建一个 `uni_modules` 文件夹）
 3. 把 `adSdk_uniapp_iosDemo` 中 `common` 文件夹添加到您的工程中
 
+
 ---
 
 ## 统一调用模式（重要）
@@ -604,7 +605,8 @@ export default {
 };
 ```
 
-
+### 本地打包注意事项
+如果使用本地打包的话,请去uniapp官网:https://nativesupport.dcloud.net.cn/AppDocs/download/ios.html下载对应的SDK版本,将解压后的SDK文件夹放到sdk_uniapp_iosDemo文件夹中,然后再自行pod install
 
 ### 解决uni-AD业务状态异常（-9001）弹框的问题
 
